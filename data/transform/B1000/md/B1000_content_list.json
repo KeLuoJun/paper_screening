@@ -1,0 +1,158 @@
+[
+    {
+        "type": "text",
+        "text": "基于 tranfer learn 的岩石样本智能识别",
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "摘要 ",
+        "text_level": 1,
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "第一问先读取Rock 数据集的所有图片并按训练集和测试集分类测试数据。第一阶段定义模型结构：首先，定义新的神经网络输入，这个输入就是新的图片经过 Inception-v3 模型前向传播到达瓶颈层时的结点取值；其次，加入新的全连接层进行分类预测。第二阶段训练：首先恢复模型，其次将处理好的每张图片的向量（经过Inception-v3 模型前向传播到达瓶颈层时的模型输出向量）喂入新的模型。第三阶段单元预测：调用unittest 包。",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "第二问利用Python 做Kmeans 聚类，统计得到黄色和绿色的点的数量除以图片总的点的数量得到岩石含油面积含量。",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "关键字：tranfer learn、Kmeans 聚类",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "目录",
+        "text_level": 1,
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "一、第一问. 2",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "二、第二问. 4",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "一、第一问",
+        "text_level": 1,
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "（一）文件目录结构 ",
+        "text_level": 1,
+        "page_idx": 3
+    },
+    {
+        "type": "image",
+        "img_path": "./data/transform/B1000/image/320c4cb9f42c8ee5486db7c7acb26729690861f72ecde7521e192c5395a1adc6.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "为了更加简洁明了的表达黑色煤、灰黑色泥岩、灰色泥质粉砂岩、灰色细砂岩、浅灰色砂岩、深灰色粉砂质泥岩、深灰色泥岩，我们分别用A、B、C、D、E、F、G 表示，如下图：",
+        "page_idx": 3
+    },
+    {
+        "type": "table",
+        "img_path": "./data/transform/B1000/image/e4102888133ddd07e78d1105ba2bb26b079894fe156a9db2ef29d71da0e6b349.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "\n\n<html><body><table><tr><td>A</td><td>黑色煤</td></tr><tr><td>B</td><td>灰黑色泥岩</td></tr><tr><td>C</td><td>灰色泥质粉砂岩</td></tr><tr><td>D</td><td>灰色细砂岩</td></tr><tr><td>E</td><td>浅灰色细砂岩</td></tr><tr><td>F</td><td>深灰色粉砂质泥岩</td></tr><tr><td>G</td><td>深灰色泥岩</td></tr></table></body></html>\n\n",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "datas:存储训练（含测试）图片集、预测图片集tmp 存储图片数据经过预训练模型后得到的特征向量（倒数第二层，称为瓶颈层，模型inception-v3 输出节点数为 2048）",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "pre_model：准备好的预训练模型文件models：放生成的模型文件及日志train_models：模型训练过程，该模型没有数据预处理过程，直接将数据随机分为训练、测试样本后，每张丢进预训练模型得到2048 维特征向量作为一个样本，并为它打上one-hot 标签进行训练，选用的类别数为5 类，直接构造一个全连接层进行训练便可。",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "predicts：模型的预测过程",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "（二） 实验过程：",
+        "text_level": 1,
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "1、构建文件目录结构 ",
+        "text_level": 1,
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "pre_model 是 inception-v3 模 型 的 文 件 夹 ，tensorflow_inception_graph.pb 是 inception-v3 模型文件名，",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "/datas/tmp/bottleneck 是图像的特征向量保存地址，/datas/train是图片数据文件夹。",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "2、利用 Inception-v3 模型进行 tranfer learn",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "Inception-v3 模 型 在 一 台 配 有 8Tesla K40 GPUs ， 大 概 价 值$\\$30,000$ 的野兽级计算机上训练了几个星期，因此不可能在一台普通的 PC 上训练。我们将会下载预训练好的 Inception 模型，然后用它来做图像分类。Inception-v3 模型大约有 2500 万个参数，分类一张图像就用了50 亿的乘加指令。在一台没有GPU 的现代PC 上，分类一张图像转眼就能完成。ImageNet 数据集包含1500 万张图片，22000个类别。其子集对应的是目前最权威的图片分类竞赛 LSVRC，包含100 万张图片和 1000 个类别。谷歌在大型图像数据库 ImageNet 上训 练 好 了 一 个 Inception-v3 模 型 ， 在 Inception-v3 模 型 中 ，inception-v3 模型瓶颈层的节点个数是 2048 ，其中，我们用pool_3/_reshape:0 表示 inception-v3 模型中代表瓶颈层结果的张量名称，DecodeJpeg/contents:0 表示图像输入张量对应的名称。这个模型可以直接用来进行图像分类，所以基于 Inception-v3 模型加适量的新的训练层进行 tranfer learn。我们设置神经网络的训练参数为0.01，迭代8000 次，每100 个样本批次处理，从每 100 张图片中随机选取10 张验证数据，同时，我们会每隔100 步保存模型。",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "二、第二问",
+        "text_level": 1,
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "首先利用软件读取数据集Rock 以及读取图片信息得到三维阵列，知道分辨率3000x4096，即数据总的点的数量为3000x4096，再通过观察数据集Rock 中“白光/荧光”标签为“2”的数据是相同荧光环境下拍摄的岩石样本图像数据，利用 Python 做 Kmeans 聚类，通过聚类发现聚类太少就不能很好的区分绿色和黄色。最终，经过检验，我们决定将所有颜色分成八类，可以得到比较好的结果，如图 1 所示。然后通过计算最终得到岩石含油面积含量。",
+        "page_idx": 5
+    },
+    {
+        "type": "image",
+        "img_path": "./data/transform/B1000/image/3cca795d0fca90712ea182cbe23aa9c433d6b6cb55c8df5765a4c6daeb402877.jpg",
+        "img_caption": [
+            "图 1"
+        ],
+        "img_footnote": [],
+        "page_idx": 6
+    }
+]

@@ -1,0 +1,463 @@
+[
+    {
+        "type": "text",
+        "text": "Intelligent identification of rock samples ",
+        "text_level": 1,
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Abstract ",
+        "text_level": 1,
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "In oil and gas exploration, rock sample identification is a basic and important link. In order to accurately extract color, texture, granularity and other features in rock to identify lithology, the image is enhanced by histogram equalization transformation, and then multi-level Gaussian blur is adopted,SIFT algorithm is used to realize feature matching and extract feature points There is diversity in rock samples, which is affected by occlusion, illumination and visual angle,In this paper, Ada-Boost algorithm and prm algorithm combined with PCA are used to reduce the dimension of training set, test set and pictures to be tested,The algorithm can finally upgrade a weak classifier to a strong classifier. In order to calculate the percentage content of oil-bearing area of rock, homomorphic filtering is used to increase contrast and standardize brightness, and histogram equalization is used to enhance image contrast, make the illumination of details more obvious, and achieve the purpose of enhancing detail features,Moreover, the effect of histogram equalization is stronger than that of high-pass filter. Then, with the help of pixel calculation, the whole area of the picture is calculated, and then assisted by image segmentation algorithm, and then the area with oil content is calculated. In this paper, the recognition system makes full use of image recognition technology and deep learning algorithm, and introduces AdaBoost algorithm into the modeling of rock sample model, thus successfully realizing intelligent recognition of rock samples. ",
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Key words: intelligent recognition, histogram equalization, AdaBoost algorithm, PCA, SIFT algorithm, homomorphic filtering ",
+        "page_idx": 0
+    },
+    {
+        "type": "text",
+        "text": "Catalogue ",
+        "text_level": 1,
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "I Mining target 1 ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "I1  Analysis method and process 1 ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "2.1 Analytical methods and processes of questions: 1 ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "2.1.1 Histogram equalization 1 ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "2.1.2 SIFT algorithm 2 ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "2.1.3 Summary 3 ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "2.2 Analysis and Process of Method 2 of Question 1 3 ",
+        "text_level": 1,
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "2.2.1 Flow chart 3 ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "2.2.2 Adaboost algorithm and pca dimension reduction 3 ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "2.2.3 Prm random sampling 5 ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "2.2.4 Summary 5 ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "Il Analysis method and process of Question 2 6 ",
+        "text_level": 1,
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "3.1 Flow chart 6 ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "3.1.1 Homomorphic filtering/histogram homogenization 6   \n3.1.2 Calculation of pixel points. 8 ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "3.2 Question 2, Method 2, Analysis and Process. 8 ",
+        "text_level": 1,
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "3.2.1 Image segmentation and Area calculation 8 ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "IV Conclusion 8   \nReferences 9 ",
+        "page_idx": 1
+    },
+    {
+        "type": "text",
+        "text": "I Mining target ",
+        "text_level": 1,
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "In the data set rock, the data with\"white light/fluorescence\" label \"1\" is the rock sample image data shot under the same white light environment, and the data with \"white light/fluorescence\" label $\"2\"$ is the rock sample image data shot under the same fluorescence environment. This modeling mainly uses PCA-based Ada-Boost algorithm to achieve the following two goals: ",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "1. Build an intelligent identification model for lithology of rock samples. Accord to that rock data set, the lithology intelligent identification and classification of rock samples are realize.   \n2. Oil has luminous characteristics under ultraviolet irradiation, and the green or yellow part of photos taken under fluorescent lamps contains oil,then calculate the percentage of oil-bearing area of rock. ",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "I  Analysis method and process ",
+        "text_level": 1,
+        "page_idx": 2
+    },
+    {
+        "type": "image",
+        "img_path": "./data/transform/B1135/image/566f492e413074c4ab4632c285cbf570cbc957fdb771cd1a1d88e9043a745c22.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "2.1 Analytical methods and processes of questions: ",
+        "text_level": 1,
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "2.1.1 Histogram equalization ",
+        "text_level": 1,
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Affected by light, angle, visual angle, etc., the pictures taken by remote sensing technology will have the problems that the feature points of the pictures are not obvious enough and the features are not prominent,Facing this problem, this paper adopts histogram equalization method to enhance the pictures to achieve the purpose of enhancing the detail features. Histogram equalization algorithm is a common and classical effective image enhancement algorithm, which redefines the distribution of gray value by function, and then changes the contrast to achieve the purpose of image enhancement. ",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "Consider a discrete grayscale image $\\{\\mathrm{x}\\}$ ",
+        "page_idx": 2
+    },
+    {
+        "type": "text",
+        "text": "$n_{i}$ Let H show the number of occurrences of gray ${\\mathrm{I}},$ and the probability of occurrence of pixels with gray Iin images is Px (i） =P （x-i） =n $P_{x}\\ \\left(\\mathrm{i}\\right)\\ \\stackrel{}{=}\\mathrm{P(\\bar{x}=i)}\\ \\stackrel{\\frac{n_{\\mathrm{i}}}{n}}{=}\\ 0{\\leq}\\mathrm{i}^{\\leq}\\mathrm{L}$ L is the number of all gray levels in the image The cumulative integral function corresponding to $P_{x}$ is defined as: ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "$\\mathrm{~c~d~}^{f_{x}}(\\mathrm{i})=^{\\sum_{j=0}^{i}P_{x}}\\left(\\mathrm{j}\\right)\\mathrm{~x~i~}$ s the cumulative normalized histogram of images We create a transformation in the form of $\\scriptstyle\\mathbf{y}=\\mathbf{T}(\\mathbf{x})$ , which produces a y for each value of the original image, so that the cumulative probability function of y can be linearized in all values,The transformation formula is defined as: ",
+        "page_idx": 3
+    },
+    {
+        "type": "equation",
+        "text": "$$\n\\operatorname{c}\\mathrm{d}^{f_{y}}(\\mathrm{i})=\\mathrm{i}\\operatorname{k}\n$$",
+        "text_format": "latex",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "For the constant $\\mathbf{k},$ the property of K,CDF allows us to make such a transformation, which is defined as: c $\\mathrm{d}^{f}x(\\boldsymbol{y^{\\prime}})=\\mathrm{~c~}\\mathrm{d}^{f}\\boldsymbol{y}(\\mathrm{T(k)})=\\mathrm{~c~}\\mathrm{d}^{f}\\boldsymbol{x}(\\mathrm{k})\\mathrm{~k~\\in~[0,~L)~}$ note that $\\mathrm{\\DeltaT}$ maps different gray levels to $(0,1),\\mathrm{{In}}$ order to map these values to the initial domain, the following simple transformation needs to be applied to the results: $\\mathrm{y~}^{\\circ}=\\mathrm{y}^{\\ast}(\\operatorname*{max}\\{\\mathrm{x}\\}-\\operatorname*{min}\\{\\mathrm{x}\\})+\\operatorname*{min}\\{\\mathrm{x}\\}$ ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "In order to extract feature points of pictures, we first use SIFT algorithm to realize feature point matching. First, we locate the key points and determine the feature direction, and then find several pairs of matching feature points by comparing the feature vectors of each key point in pairs. ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "2.1.2 SIFT algorithm ",
+        "text_level": 1,
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "Overview of SIFT algorithm: ",
+        "text_level": 1,
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "SIFT (Scale Invariant Feature Transform) is the full name of Scale Invariant Feature Transform,SIFT operator describes the feature points detected in an image with a 128- dimensional feature vector, so an image is represented as a 128-dimensional feature vector set after SIFT algorithm,This feature vector set has the characteristics of invariant image scaling, translation and rotation, and is also invariant to illumination, affine and projection transformation, which is a very excellent local feature. ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "There are the following steps ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "1. Scale space pole detection   \n2. Precise positioning of key points   \n3. Determine the direction of key points   \n4. Generating feature vectors ",
+        "page_idx": 3
+    },
+    {
+        "type": "text",
+        "text": "2.1.3 Summary ",
+        "text_level": 1,
+        "page_idx": 4
+    },
+    {
+        "type": "image",
+        "img_path": "./data/transform/B1135/image/ece7367df9a31dd8bbe240e421012cc7750e9e675dbccb0950b4bc15d0d06b8d.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "It can be preliminarily identified by calculating the matching points per unit rock area, but the calculation unit is a bit large and the time is slow, which is not suitable for largescale identification. ",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "2.2 Analysis and Process of Method 2 of Question 1 ",
+        "text_level": 1,
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "2.2.1 Flow chart ",
+        "text_level": 1,
+        "page_idx": 4
+    },
+    {
+        "type": "image",
+        "img_path": "./data/transform/B1135/image/e50bc9f91f17328dff0c53d462730259d922fed58a71c21e7e6148d9b88ab79f.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "2.2.2 Adaboost algorithm and pca dimension reduction ",
+        "text_level": 1,
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "We use PCA algorithm and Adaboost algorithm to train samples. ",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "We now transform the picture into the corresponding data matrix, and then into the corresponding vector representation,This vector has high dimension and great complexity. In order to reduce the dimension without losing most information of the picture, we use PCA algorithm to reduce the dimension of the picture. We selected Mspan pictures and recorded them as $X_{1}X_{2}\\ldots X_{m}$ Using K-L transformation to get a low-dimensional subspace representing the original picture, ",
+        "page_idx": 4
+    },
+    {
+        "type": "equation",
+        "text": "$$\n\\overline{{X}}\\overset{1}{\\underset{=}{M}}\\sum_{i=1}^{m}X_{i}\n$$",
+        "text_format": "latex",
+        "page_idx": 4
+    },
+    {
+        "type": "text",
+        "text": "A new vector set can be obtained from the sample, $\\mathrm{A}{=}(^{A_{1}A_{2}\\ldots\\ldots A_{m}})^{\\prime}$ The mean value of set A is zero, and its covariance matrix is: ",
+        "page_idx": 5
+    },
+    {
+        "type": "equation",
+        "text": "$$\n\\mathbf{C}=\\cos(\\mathrm{A})={\\frac{\\frac{1}{M}}{\\mathrm{A}^{T}}}\n$$",
+        "text_format": "latex",
+        "page_idx": 5
+    },
+    {
+        "type": "text",
+        "text": "The matrix in the formula retains some orthogonal bases according to the eigenvalues, and finally it is restored to an image by computer and displayed. We use prm to build probability distribution model. Firstly, read the image, set up the starting point, target point and random number $k,$ display the starting point and ending point in the form of random number, divide the image into m areas, and scatter the same number of random sections in each area. End when the summary points reach K .. Read the line segments between all nodes. According to the $A^{*}$ algorithm, the cost of initial track inspection is defined, and the travel time and the shortest track length of the last reading sequence are determined. Then, Ada-Boost algorithm is used to recognize the image. Ada-Boost algorithm adjusts the sampling weight of each sample according to a certain strategy, and accumulates these weak classifiers according to the weight, so as to obtain a strong classifier with each weak classifier accumulated. Ada-Boost algorithm specific steps: ",
+        "page_idx": 5
+    },
+    {
+        "type": "image",
+        "img_path": "./data/transform/B1135/image/8bb490b86af87e341461e9fd0839fcc5f64b820a1adc95bb2ea27658dbd6a0c3.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "Finally,the strong classifier is used to detect the projected test picture and output the judgment result. ",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "2.2.3 Prm random sampling ",
+        "text_level": 1,
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "In the above figure, prm random sampling is used to find the best weight for identification. ",
+        "page_idx": 6
+    },
+    {
+        "type": "text",
+        "text": "2.2.4 Summary ",
+        "text_level": 1,
+        "page_idx": 6
+    },
+    {
+        "type": "table",
+        "img_path": "./data/transform/B1135/image/861d7832e0246d3709ba98d0fb0b2ace21b6bf5b291559b87f19ceecacb0da58.jpg",
+        "table_caption": [],
+        "table_footnote": [],
+        "table_body": "\n\n<html><body><table><tr><td></td></tr><tr><td>Warning:numvecs is 50;only 3 exist.</td></tr><tr><td></td></tr><tr><td>Warning:numvecs is 50;only 3 exist.</td></tr><tr><td>CLASSNUM=2,t=1,nRightCount=7,pseudo_1oss=1.250000e-01,bt=1.428571e-01</td></tr><tr><td>CLASSNUM=2,t=2,nRightCount=5,pseudo_1oss=2.142857e-01,bt=2.727273e-01</td></tr><tr><td>t=1,DIM=50,RightCount=7，RightRatio=8.750000e-01</td></tr><tr><td>t=2,DIM=50,RightCount=7,RightRatio=8.750000e-01</td></tr><tr><td>ft=2,DIM=50,RightCount=7,RightRatio=8.750000e-01</td></tr></table></body></html>\n\n",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "First, 30 groups are set up for recognition, each group has eight pictures,By setting weights through continuous sampling, the accuracy rate is still very high, and the error rateis $10\\%$ If more clear processing is added, it is estimated that it can be $6-7\\%$ higher. ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "III Analysis method and process of Question 2 ",
+        "text_level": 1,
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "3.1 Flow chart ",
+        "text_level": 1,
+        "page_idx": 7
+    },
+    {
+        "type": "image",
+        "img_path": "./data/transform/B1135/image/1ca08a45be03996cb9db005c2524a24d9d590a68bf0e0a17bc296ae64fa82f06.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "3.1.1 Homomorphic filtering/histogram homogenization ",
+        "text_level": 1,
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "When we process the image, there will be a situation that the dynamic range is very large, but a part of the gray scale of the image is very dark and the range is very small,In order to compress the brightness range of the image and enhance the contrast of the image in the frequency domain, we introduce homomorphic filtering to eliminate the influence of uneven illumination without losing the image details. ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "Firstly, the image is expressed as the product of the illumination component and the reflection component $\\scriptstyle\\operatorname{m}(\\mathbf{x},\\mathbf{y})=\\operatorname{i}(\\mathbf{x},\\mathbf{y})\\cdot\\operatorname{r}(\\mathbf{x},\\mathbf{y})$ m is the image, i is the illumination component and r is the reflection component The logarithm $\\ln(m(x,y))=1n(i(x,y))+1n(r(x,y))$ Then Fourier transform is performed to linearly separate the illumination component and the reflection component. $F\\{\\ln(m(x,y))\\}=F\\{\\ln(i(x,y))\\}+F\\{\\ln(r(x,y))\\}$ ",
+        "page_idx": 7
+    },
+    {
+        "type": "text",
+        "text": "In this paper, $F\\{\\ln(\\max,y)\\}$ is defined as $M(u,v)$   \nHigh-pass filtering is carried out on the image, so that the illumination of the image is uniform, the high-frequency component increases, and the low-frequency component decreases   \n$\\mathrm{N(u,v){=}H(u,v)\\cdot M(u,v)}$ His a high-pass filter   \nIn the next step, inverse Fourier transform is performed on $\\mathrm{N,}$ and the image is transferred from frequency domain to time domain   \n$\\scriptstyle\\mathrm{n(x,y)=F-1\\{N(x,y)\\}}$   \nFinally, the logarithm taken at the beginning is restored by exponential function $\\scriptstyle\\mathrm{m}^{\\prime}(\\mathrm{x},\\mathrm{y})=\\exp\\{\\mathrm{n}(\\mathrm{x},\\mathrm{y})\\}$   \nIn the end, we get the result. ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "Homomorphic filtering RawImage ",
+        "page_idx": 8
+    },
+    {
+        "type": "image",
+        "img_path": "./data/transform/B1135/image/522fbc9baa605d9751f9da0316c84a2d430014d5de7030a0041ea6bf07a065f9.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "It can be seen from this that when looking at the distribution of rock oil area, histogram equalization can show the green part for calculation. ",
+        "page_idx": 8
+    },
+    {
+        "type": "text",
+        "text": "3.1.2 Calculation of pixel points ",
+        "text_level": 1,
+        "page_idx": 9
+    },
+    {
+        "type": "image",
+        "img_path": "./data/transform/B1135/image/05714fabaa4d95389546edb09da2bb27a4f1e1927ddd669c44e591fb81de0a4b.jpg",
+        "img_caption": [],
+        "img_footnote": [],
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "The picture shows that the oil area in this picture accounts for $11.9\\%$ ",
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "3.2 Question 2, Method 2, Analysis and Process. ",
+        "text_level": 1,
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "3.2.1 Image segmentation and Area calculation ",
+        "text_level": 1,
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "Image segmentation is one of the most critical steps in image processing,By searching every boundary in the image area and detecting according to the gradient change of the image, false edges are avoided,In order to solve the problem of uneven gray scale, we add fuzzy membership function into the offset field model, and integrate Canny operator and offset field into the double level set model, so as to realize the segmentation of images with complex boundaries and uneven gray scale, and extract useful information. Canny operator has high accuracy in processing image edge information, which is a standard multi-level detection algorithm, in which Gaussian filter is used to remove noise, so as to improve the segmentation accuracy, and then the gradient intensity and direction are calculated,Here, we use horizontal and vertical direction templates to ensure the detection accuracy,After template detection, the gradient edge of the image has multiple pixels wide, We use non-maximum suppression method to keep the maximum gradient, so as to get a clear gradient map. ",
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "If such treatment can be used, the calculation of oil area capacity will be more accurate. ",
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "IV Conclusion ",
+        "text_level": 1,
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "Nowadays, compression and recognition algorithms are inextricably linked with the new generation of hardware,With the advent of cloud computing, faster and better algorithms will emerge constantly, and the situation that the array in the figure below is too large to handle will not appear. ",
+        "page_idx": 9
+    },
+    {
+        "type": "text",
+        "text": "References ",
+        "text_level": 1,
+        "page_idx": 10
+    },
+    {
+        "type": "text",
+        "text": "[1] Chengjun Liu and Harry Wechsler, \"Robust Coding Schemes for Indexing and Retrieval from Large Face Database\", IEEE Trans. Image Processing, vol.9, 132- 137,2000   \n[2]  Yoav Freund and Robert E.Schapire, \"A Decision-Theoretic Generalization of Online Learning and an Application to Boosting, Journal of computer and system sciences,55.119-139 (1997)   \n[3] Song Zhifang Shanxi Institute of Automation [A] Application of Raw Coal Identification Mode in Coal Output Measurement System   \n[4] Hu Song, Huang Zhiyuan, Deng Lei, Li Zhuanghao, Fan Jieying, Zeng Wei (Chengdu University of Technology, Chengdu, Sichuan 610000)   \n[5] Li Xiangjian, Zhu Jiaming， Xu Tingyi。 Bilevel Set Medical Image Segmentation Based  on Improved  Canny Opera tor[J].Radio Communications Technol0gy,2021,47(2):226-231 ",
+        "page_idx": 10
+    }
+]
